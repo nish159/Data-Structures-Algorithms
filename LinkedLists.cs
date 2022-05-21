@@ -15,6 +15,7 @@ list.AddLast(2);
 list.AddLast(3);
 Console.WriteLine(list.ToString());
 
+// a value needs to be stored in order for this to work
 var n = list.Find(5);
 Console.Write(n.value);
 //Console.WriteLine(list.ToString());
