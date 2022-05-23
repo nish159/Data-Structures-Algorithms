@@ -13,12 +13,34 @@ list.AddLast(1);
 list.AddLast(2);
 
 list.AddLast(3);
+
+list.AddLast(1);
 Console.WriteLine(list.ToString());
 
 // a value needs to be stored in order for this to work
-var n = list.Find(5);
-Console.Write(n.value);
+var n = list.Find(2);
+if (n != null)
+{
+    Console.WriteLine($"{n.value} is in the list.");
+}
+else
+{
+    Console.WriteLine("value not found.");
+}
 //Console.WriteLine(list.ToString());
+
+var c = list.CountValue(1);
+Console.WriteLine($"there are this many nodes within the value {c}");
+
+var a = list.Find(1);
+if (a != null)
+{
+    Console.WriteLine(list.IndexOf(a));
+}
+else
+{
+    Console.WriteLine("value not found");
+}
 
 
 namespace LinkedListNamespace
@@ -49,6 +71,22 @@ namespace LinkedListNamespace
         {
             _head = null;
             _tail = null;
+        }
+
+        /// <summary>
+        /// Adds a new node containing the specified value after the specified existing node in the list
+        /// </summary>
+        /// <param name="node">The <see cref="Node"/> after which to insert a new <see cref="Node"/> containing value</param>
+        /// <param name="value">The value to add to the list</param>
+        /// <returns>The new <see cref="Node"/> containing the value</returns>
+        public Node? AddAfter(Node? node, int value)
+        {
+            // let value = 5
+            // [Head] -> ... -> [ node ] -> [  7  ] -> ... -> [    ] -> [Tail] -> null
+            // [Head] -> ... -> [ node ] -> [  5  ] -> [  7  ] -> ... -> [    ] -> [Tail]-> null
+            //                             new node
+            // TODO
+            return;
         }
 
         /// <summary>
@@ -210,11 +248,73 @@ namespace LinkedListNamespace
         public Node? Find(int value)
         {
             Node? curr = _head; // current node starts at the head
-            while (curr.value != value) 
+            while (curr != null && curr.value != value) // check for null before accessing what's in the while loop
             {
                 curr = curr.next;
             }
             return curr;
+        }
+
+        /// <summary>
+        /// Finds the last node that contains the specified value.
+        /// </summary>
+        /// <param name="value">The value to locate in the list</param>
+        /// <returns>The last <see cref="Node"/> containing the value if found, otherwise null</returns>
+        public Node? FindLast(int value)
+        {
+            Node? curr = _head;
+            Node? lastNode = null;
+            while (curr != null)
+            {
+                if (curr.value == value)
+                {
+                    lastNode = curr;
+                }
+                curr = curr.next;
+            }
+            return lastNode;
+        }
+
+        /// <summary>
+        /// Returns the index of the given node in the list
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns>The index of the given node if it is in the list, otherwise -1</returns>
+        public int IndexOf(Node? node)
+        {
+            int index = 0;
+            Node? curr = _head;
+            while(curr != null)
+            {
+                if(curr == node)
+                {
+                    return index;
+                }
+                curr = curr.next;
+                index++;
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// Counts how many nodes are in the linked list with the given value 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public int CountValue(int value)
+        {
+            Node? curr = _head;
+            int count = 0;
+
+            while (curr != null)
+            {
+                if (curr.value == value)
+                {
+                    count++;
+                }
+                curr = curr.next;
+            }
+            return count;
         }
 
         /// <summary>
