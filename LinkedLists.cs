@@ -85,8 +85,25 @@ namespace LinkedListNamespace
             // [Head] -> ... -> [ node ] -> [  7  ] -> ... -> [    ] -> [Tail] -> null
             // [Head] -> ... -> [ node ] -> [  5  ] -> [  7  ] -> ... -> [    ] -> [Tail]-> null
             //                             new node
-            // TODO
-            return;
+            Node? newNode = new Node();
+            newNode.value = value;
+            newNode.next = _head;
+
+            if (_head == null /* the list is empty*/)
+            {
+                _head = newNode;
+                _tail = newNode;
+            }
+            else if (_head == _tail /* there is only one node in the list we will add a node after*/)
+            {
+                _head = newNode;
+            }
+            else
+            {
+                _head = newNode.next;
+                newNode.next = node;
+            }
+            return newNode;
         }
 
         /// <summary>
@@ -363,5 +380,4 @@ namespace LinkedListNamespace
             return str;
         }
     }
-
 }
