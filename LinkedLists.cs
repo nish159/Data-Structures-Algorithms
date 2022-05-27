@@ -15,6 +15,9 @@ list.AddLast(2);
 list.AddLast(3);
 
 list.AddLast(1);
+
+//list.AddAfter(list.FindLast(1),5);
+list.AddBefore(list.Find(1), new Node() { value = 7});
 Console.WriteLine(list.ToString());
 
 // a value needs to be stored in order for this to work
@@ -86,24 +89,52 @@ namespace LinkedListNamespace
             // [Head] -> ... -> [ node ] -> [  5  ] -> [  7  ] -> ... -> [    ] -> [Tail]-> null
             //                             new node
             Node? newNode = new Node();
-            newNode.value = value;
-            newNode.next = _head;
 
-            if (_head == null /* the list is empty*/)
+            newNode.value = value;
+            newNode.next = node.next;
+            node.next = newNode;
+
+            if (node == _tail)
             {
-                _head = newNode;
                 _tail = newNode;
             }
-            else if (_head == _tail /* there is only one node in the list we will add a node after*/)
+            return newNode;
+        }
+
+        /// <summary>
+        /// Adds the specified new node before the specified existing node in the list
+        /// </summary>
+        /// <param name="node">The <see cref="Node"/> before which to insert newNode</param>
+        /// <param name="newNode">The new <see cref="Node"/> to add to the list</param>
+        /// <exception cref="ArgumentNullException">if <paramref name="node"/> is null or <paramref name="newNode"/> is null</exception>
+        /// <exception cref="InvalidOperationException">if <paramref name="node"/> is not in the current list</exception>
+        public void AddBefore(Node? node, Node? newNode)
+        {
+            Node? curr = _head;
+            Node? previousNode = null; // if looking for something if not found it is null
+
+            while (curr != null)
             {
+                if (curr.next == node)
+                {
+                    previousNode = curr;
+                }
+                curr = curr.next;
+            }
+
+            if (node == _head)
+            {
+                // the previous node is null so we have to make it eq to something so you don't get an exception
+                previousNode = newNode;
                 _head = newNode;
             }
-            else
+
+            if (previousNode == null)
             {
-                _head = newNode.next;
-                newNode.next = node;
+                throw new InvalidOperationException("Not found");
             }
-            return newNode;
+            previousNode.next = newNode;
+            newNode.next = node;
         }
 
         /// <summary>
@@ -111,7 +142,7 @@ namespace LinkedListNamespace
         /// </summary>
         /// <param name="value">The value to add to the start of the liist</param>
         /// <returns>The new <see cref="Node"/> containing the value</returns>
-        public Node? AddFist(int value)
+        public Node? AddFirst(int value)
         {
             // We are modifying the beginning of the list -> we have to move the head
 
