@@ -16,7 +16,8 @@ list.AddLast(3);
 
 list.AddLast(1);
 
-//list.AddAfter(list.FindLast(1),5);
+list.AddAfter(list.FindLast(1),5);
+
 list.AddBefore(list.Find(1), new Node() { value = 7});
 Console.WriteLine(list.ToString());
 
@@ -33,7 +34,7 @@ else
 //Console.WriteLine(list.ToString());
 
 var c = list.CountValue(1);
-Console.WriteLine($"there are this many nodes within the value {c}");
+Console.WriteLine($"there are this many nodes within the given value {c}");
 
 var a = list.Find(1);
 if (a != null)
