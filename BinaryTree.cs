@@ -1,5 +1,13 @@
 using System;
 
+
+BinaryTree tree = new BinaryTree();
+tree.Insert(6);
+tree.PrintInOrder();
+tree.Insert(4);
+tree.PrintInOrder();
+tree.Insert(7);
+tree.PrintInOrder();
 public class Node
 {
     public int value { get; set; }
@@ -20,24 +28,56 @@ public class BinaryTree
         PrintInOrder(root);
     }
 
+    public void Insert(int value)
+    {
+        if (root == null)
+        {
+            Node? newNode = new Node();
+            newNode.value = value;
+            root = newNode;
+        }
+        else
+        {
+            Insert(root, value);
+        }
+    }
+
     /// <summary>
     /// Inserts a given value into the tree
     /// </summary>
     /// <param name="value"></param>
-    private void Insert(int value)
+    private void Insert(Node? node, int value)
     {
         // Is the root null!!!
+        Node? newNode = new Node();
+        newNode.value = value;
 
+        if (node == null /* if the liist is empty*/)
+        {
+            node = newNode;
+        }
+        else if (value < node.value)
+        {
+            Insert(node.left, value);
+        }
+        else if (value > node.value)
+        {
+            Insert(node.right, value);
+        }
     }
 
     private void PrintInOrder(Node? node)
     {
-        if(node.left == null)
+        if(node == null)
+        {
+            return;
+        }
+        if (node.left == null)
         {
             Console.Write(node.value + " ");
             return;
         }
-        
+
         PrintInOrder(node.left); // Print the left subtree
         // Every node in the left sub-tree has been printed
 
