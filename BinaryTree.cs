@@ -56,11 +56,11 @@ public class BinaryTree
         {
             node = newNode;
         }
-        else if (value < node.value)
+        else if (value < node.value /* if the value is less than the node value*/)
         {
             Insert(node.left, value);
         }
-        else if (value > node.value)
+        else if (value > node.value /* if the value is greater than the node value*/)
         {
             Insert(node.right, value);
         }
