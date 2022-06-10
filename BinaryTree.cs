@@ -52,7 +52,7 @@ public class BinaryTree
         Node? newNode = new Node();
         newNode.value = value;
 
-        if (node == null /* if the liist is empty*/)
+        if (node == null /* if the list is empty*/)
         {
             node = newNode;
         }
