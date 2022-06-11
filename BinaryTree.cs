@@ -4,19 +4,37 @@ BinaryTree tree = new BinaryTree();
 tree.Insert(6);
 tree.PrintInOrder();
 Console.WriteLine(" ");
+
 tree.Insert(4);
 tree.PrintInOrder();
 Console.WriteLine(" ");
+
+tree.Insert(9);
+tree.PrintInOrder();
+Console.WriteLine(" ");
+
+tree.Insert(3);
+tree.PrintInOrder();
+Console.WriteLine(" ");
+
+tree.Insert(1);
+tree.PrintInOrder();
+Console.WriteLine(" ");
+
 tree.Insert(7);
 tree.PrintInOrder();
 Console.WriteLine(" ");
-tree.Insert(9);
-Console.WriteLine(" ");
-// need a variable to return a node
-var node = tree.Find(4);
+
+// you will need a variable to return a node
+var node = tree.Find(7);
 Console.WriteLine(node.value + " ");
+
 var max = tree.Depth();
 Console.WriteLine(max + " ");
+
+var total = tree.Count();
+Console.WriteLine($"Nodes: {total}");
+
 public class Node
 {
     public int value { get; set; }
@@ -37,6 +55,25 @@ public class BinaryTree
         PrintInOrder(root);
     }
 
+    public int Count()
+    {
+        return Count(root);
+    }
+
+    private int Count(Node? node)
+    {
+        if (node == null)
+        {
+            return 0;
+        }
+
+        int leftNodes = Count(node.left);
+        int rightNodes = Count(node.right);
+
+        var total = leftNodes + rightNodes + 1;
+        return total;
+    }
+
     public int Depth()
     {
         return Depth(root);
@@ -44,6 +81,7 @@ public class BinaryTree
 
     private int Depth(Node? node)
     {   
+        // base case always remains at the top
         if (node == null)
         {
             return 0;
@@ -86,7 +124,7 @@ public class BinaryTree
     /// </summary>
     /// <param name="node"></param>
     /// <param name="value"></param>
-    private Node? Find(Node?  node, int value)
+    private Node? Find(Node? node, int value)
     {
         if (node == null)
         {
