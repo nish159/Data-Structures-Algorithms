@@ -2,26 +2,26 @@ using System;
 
 BinaryTree tree = new BinaryTree();
 tree.Insert(6);
-tree.PrintInOrder();
+//tree.PrintInOrder();
 Console.WriteLine(" ");
 
 tree.Insert(4);
-tree.PrintInOrder();
-Console.WriteLine(" ");
-
-tree.Insert(9);
-tree.PrintInOrder();
-Console.WriteLine(" ");
-
-tree.Insert(3);
-tree.PrintInOrder();
-Console.WriteLine(" ");
-
-tree.Insert(1);
-tree.PrintInOrder();
+//tree.PrintInOrder();
 Console.WriteLine(" ");
 
 tree.Insert(7);
+//tree.PrintInOrder();
+Console.WriteLine(" ");
+
+tree.Insert(3);
+//tree.PrintInOrder();
+Console.WriteLine(" ");
+
+tree.Insert(1);
+//tree.PrintInOrder();
+Console.WriteLine(" ");
+
+tree.Insert(9);
 tree.PrintInOrder();
 Console.WriteLine(" ");
 
@@ -34,6 +34,10 @@ Console.WriteLine(max + " ");
 
 var total = tree.Count();
 Console.WriteLine($"Nodes: {total}");
+
+tree.RemoveNode(9);
+tree.PrintInOrder();
+
 
 public class Node
 {
@@ -53,6 +57,43 @@ public class BinaryTree
     public void PrintInOrder()
     {
         PrintInOrder(root);
+    }
+
+    public void RemoveNode(int value)
+    {
+        RemoveNode(ref root, value);
+    }
+
+    // ref is the original and not the copy
+    private void RemoveNode(ref Node? node, int value)
+    {
+        // find the node that we want to remove
+        if (node == null)
+        {
+            return;
+        }
+
+        if (node.value < value)
+        {
+            RemoveNode(ref node.left, value);
+        }
+        else if (node.value > value)
+        {
+            RemoveNode(ref node.right, value);
+        }
+        else
+        {
+            // the value is equal to the node we want to remove so we remove the current node
+            // 1. The node to remove is a leaf
+            // 2. The node to remove has one child
+            // 3. The node to remove has 2 children
+
+            if (node.left == null && node.right == null)
+            {
+                node = null;
+            }
+            
+        }
     }
 
     public int Count()
@@ -80,7 +121,7 @@ public class BinaryTree
     }
 
     private int Depth(Node? node)
-    {   
+    {
         // base case always remains at the top
         if (node == null)
         {
@@ -130,7 +171,7 @@ public class BinaryTree
         {
             return node;
         }
-        
+
         if (node.value == value)
         {
             return node;
@@ -185,11 +226,6 @@ public class BinaryTree
     {
         if (node == null)
         {
-            return;
-        }
-        if (node.left == null)
-        {
-            Console.Write(node.value + " ");
             return;
         }
 
