@@ -109,8 +109,6 @@ public class BinaryTree
                 // now we have to remove the node in the right subtree that has the min value
                 node.right = RemoveNode(node.right, minright);
             }
-          
-            
         }
         return node;
     }
