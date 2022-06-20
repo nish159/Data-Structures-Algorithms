@@ -35,7 +35,7 @@ Console.WriteLine(max + " ");
 var total = tree.Count();
 Console.WriteLine($"Nodes: {total}");
 
-tree.RemoveNode(9);
+tree.RemoveNode(6);
 tree.PrintInOrder();
 
 
@@ -61,25 +61,25 @@ public class BinaryTree
 
     public void RemoveNode(int value)
     {
-        RemoveNode(ref root, value);
+        root = RemoveNode(root, value);
     }
 
     // ref is the original and not the copy
-    private void RemoveNode(ref Node? node, int value)
+    private Node? RemoveNode(Node? node, int value)
     {
         // find the node that we want to remove
         if (node == null)
         {
-            return;
+            return node;
         }
 
-        if (node.value < value)
+        if (node.value < value) // the value we are looking for is greated than the value in the node -> go right
         {
-            RemoveNode(ref node.left, value);
+            node.right = RemoveNode(node.right, value);
         }
-        else if (node.value > value)
+        else if (node.value > value) // the value we are looking for is less than then value in the node -> go left
         {
-            RemoveNode(ref node.right, value);
+            node.left = RemoveNode(node.left, value);
         }
         else
         {
@@ -90,10 +90,38 @@ public class BinaryTree
 
             if (node.left == null && node.right == null)
             {
-                node = null;
+                return null;
             }
+            else if (node.left == null)
+            {
+                return node.right;
+            }
+            else if (node.right == null)
+            {
+                return node.left;
+            }
+            else // The node to remove has 2 children
+            {
+                // The new value of the node we are removing will be the min value in the right subtree
+                var minright = MinValue(node.right);
+                node.value = minright;
+
+                // now we have to remove the node in the right subtree that has the min value
+                node.right = RemoveNode(node.right, minright);
+            }
+          
             
         }
+        return node;
+    }
+
+    public int MinValue(Node? node)
+    {
+        if (node.left == null)
+        {
+            return node.value;
+        }
+        return MinValue(node.left);
     }
 
     public int Count()
