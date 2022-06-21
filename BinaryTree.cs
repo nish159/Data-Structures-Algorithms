@@ -6,19 +6,19 @@ tree.Insert(6);
 Console.WriteLine(" ");
 
 tree.Insert(4);
-//tree.PrintInOrder();
+tree.PrintInOrder();
 Console.WriteLine(" ");
 
 tree.Insert(7);
-//tree.PrintInOrder();
+tree.PrintInOrder();
 Console.WriteLine(" ");
 
 tree.Insert(3);
-//tree.PrintInOrder();
+tree.PrintInOrder();
 Console.WriteLine(" ");
 
 tree.Insert(1);
-//tree.PrintInOrder();
+tree.PrintInOrder();
 Console.WriteLine(" ");
 
 tree.Insert(9);
